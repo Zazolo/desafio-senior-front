@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListPageComponent } from '../pages/list-page/list-page.component';
+import { FormPageComponent } from '../pages/form-page/form-page.component';
 
 const APP_PAGES_COMPONENTS = [
-  ListPageComponent
+  ListPageComponent,
+  FormPageComponent
 ]
 
 @NgModule({

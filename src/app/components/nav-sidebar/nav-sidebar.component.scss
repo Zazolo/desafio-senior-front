@@ -1,6 +1,74 @@
+@import '../../../assets/scss/props.scss';
+
 .container{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     flex-direction: column;
-    width: 150px;
+    width: 120px;
     height: 100vh;
+    position: relative;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    
+
+    .logo{
+        width: 80%;
+        
+    }
+
+    ul{
+        list-style-type: none;
+        width: 100%;
+        margin-top: 25px;
+        padding: 0;
+        display: flex;
+        align-content: center;
+        vertical-align: middle;
+        justify-content: center;
+        flex-direction: column;
+        li{
+            list-style-type: none;
+            background-color: none!important;
+            cursor: pointer;
+            width: 95%;
+            border-radius: 6px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            height: auto;
+            transition: all .245s ease;
+            display: flex;
+            transform: translateX(2.5%);
+            justify-content: center;
+            align-content: center;
+            vertical-align: middle;
+            margin-bottom: 15px!important;
+           
+
+            i{
+                font-size: 1.3em;
+                color: $icons-normal;
+                transition: all .245s ease;
+            }
+
+            &:hover{
+                background-color: #008267;
+                i{
+                    color: $icons-hover!important;
+                }
+            }
+
+            &.active{
+                background-color: #14a588;
+                i{
+                    color: rgb(197, 197, 197);
+                }
+            }
+        }
+    }
+
+    .footer-roler{
+        font-size: 12px;
+        line-height: 1;
+    }
 }

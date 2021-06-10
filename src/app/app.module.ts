@@ -8,6 +8,7 @@ import { ListPageComponent } from './pages/list-page/list-page.component';
 import { TableComponent } from './components/table/table.component';
 import { BigButtonComponent } from './components/big-button/big-button.component';
 import { NavSidebarComponent } from './components/nav-sidebar/nav-sidebar.component';
+import { FormPageComponent } from './pages/form-page/form-page.component';
 
 
 
@@ -17,7 +18,8 @@ import { NavSidebarComponent } from './components/nav-sidebar/nav-sidebar.compon
     ListPageComponent,
     TableComponent,
     BigButtonComponent,
-    NavSidebarComponent
+    NavSidebarComponent,
+    FormPageComponent
   ],
   imports: [
     BrowserModule,

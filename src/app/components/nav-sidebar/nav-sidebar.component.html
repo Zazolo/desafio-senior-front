@@ -1,3 +1,11 @@
-<div class="container app-panel">
+<div class="container app-panel app-shadow">
+    <img class="logo" src="../../../assets/image/logo-senior.svg">
 
+    <ul>
+        <li *ngFor="let m of menu" [routerLink]="[m.routerlink]">
+            <i [class]="m.icon"></i>
+        </li>
+    </ul>
+
+    <span class="footer-roler"><a href="https://github.com/Zazolo/desafio-senior-front" target="_blank">Veja o código</a></span>
 </div>

@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavSidebarComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  menu = [
+    {
+      icon: 'pi pi-home',
+      routerlink: '/listagem'
+    },
+    {
+      icon: 'pi pi-plus',
+      routerlink: '/formulario'
+    }
+  ]
+  ngOnInit() {
+      
   }
 
 }
