@@ -2,4 +2,14 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    .form-container{
+        position: relative;
+        margin: 60px;
+        background-color: white;
+        max-width: 800px;
+        padding: 20px;
+        border-radius: 25px;
+    }
 }

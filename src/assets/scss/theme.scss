@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway&family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Nunito&display=swap');
 @import './props.scss';
 
 
@@ -22,11 +22,11 @@ h1, h2, h3, p{
 
 //Definição das fontes usadas nos componentes da aplicação.
 h1, h2, h3{
-    font-family: Staatliches, cursive;
+    font-family: "Noto Sans", sans-serif;
 }
 
 p{
-    font-family: "Raleway", sans-serif;
+    font-family: "Nunito", sans-serif;
 }
 
 body{

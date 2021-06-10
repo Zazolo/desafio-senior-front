@@ -13,6 +13,11 @@ const routes: Routes = [
   },
   {
     path: 'editar/:id', component: FormPageComponent
+  },
+  {
+    path: '', 
+    redirectTo:'listagem',
+    pathMatch: 'full'
   }
 ];
 
