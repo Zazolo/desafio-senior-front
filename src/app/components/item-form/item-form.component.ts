@@ -20,10 +20,13 @@ export class ItemFormComponent implements OnInit {
     perishable:new FormControl(''),
     expiration_date: new FormControl(''),
     manufacturing_date:new FormControl(''),
-    state: new FormControl('')
   });
 
-  weight_options:EMeasurementUnit[] = Object.values(EMeasurementUnit);
+  weight_options:Object[] = [
+    {name: "Quilograma", value: EMeasurementUnit.Quilograma},
+    {name: "Unitário", value: EMeasurementUnit.Unidade},
+    {name: "Litro", value: EMeasurementUnit.Litro},
+  ];
 
 
   selectedState: any = null;
@@ -51,11 +54,16 @@ export class ItemFormComponent implements OnInit {
 
   create(){}
 
-  validate(){}
+  validate(e:any){
+    console.log(e.value);
+  }
 
   submit(){}
 
+  
+
   ngOnInit(): void {
+    Object.values(EMeasurementUnit);
     console.log(this.weight_options);
   }
 

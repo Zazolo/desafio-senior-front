@@ -1,0 +1,49 @@
+.field-container{
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    
+}
+
+.fullsize{
+    width: 100%;
+}
+
+.halfsize{
+    width: 50%;
+}
+.vertical{
+    flex-direction: column;
+}
+.horizontal{
+    display: flex;
+    flex-direction: row!important;
+}
+.spaced-between{
+    justify-content: space-between;
+}
+
+.flex-end{
+    justify-content: flex-end;
+}
+
+.field{
+    display: flex;
+    padding: 12px;
+}
+
+.ui-dropdown {
+    max-width: 100%;
+}
+
+p-toggleButton{
+    width: 24px;
+    height: 24px;
+}
+p-button{
+    width: auto;
+    margin-left: 12px!important;
+    
+}
