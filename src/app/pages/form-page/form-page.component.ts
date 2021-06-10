@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Route } from '@angular/router';
+import { EMeasurementUnit } from 'src/app/interfaces/enum/e-measurement-unit';
 import { IListTableData } from 'src/app/interfaces/ilist-table-data';
 
 @Component({
@@ -12,22 +13,15 @@ export class FormPageComponent implements OnInit {
 
   id:string | null = '123456';
 
-  form:FormGroup = new FormGroup({
-    name: new FormControl(''),
-    measurement_unit:new FormControl(''),
-    quantity: new FormControl(''),
-    price:new FormControl(''),
-    perishable:new FormControl(''),
-    expiration_date: new FormControl(''),
-    manufacturing_date:new FormControl('')
+  data:IListTableData|undefined;
 
-  });
-
+    
   constructor(
     private routeSnap:ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    
     this.id = this.routeSnap.snapshot.paramMap.get('id');
   }
 

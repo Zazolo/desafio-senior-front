@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListPageComponent } from '../pages/list-page/list-page.component';
 import { FormPageComponent } from '../pages/form-page/form-page.component';
+import { AppComponentsCustomModule } from './app-components-custom.module';
 
 const APP_PAGES_COMPONENTS = [
   ListPageComponent,
@@ -10,10 +11,10 @@ const APP_PAGES_COMPONENTS = [
 
 @NgModule({
   declarations: [APP_PAGES_COMPONENTS],
-  exports:[APP_PAGES_COMPONENTS],
   imports: [
     CommonModule,
-    APP_PAGES_COMPONENTS
-  ]
+    AppComponentsCustomModule
+  ],
+  exports:[APP_PAGES_COMPONENTS, AppComponentsCustomModule],
 })
 export class AppPagesModule { }
