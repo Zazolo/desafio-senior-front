@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+    Importação das propriedades padrões para o tema.
+*/
+@import './assets/scss/theme.scss';
+
+*{
+    box-sizing: border-box;
+    margin: 0!important;
+}
+
+h1, h2, h3, p{
+    line-height: 1;
+    margin: 0!important;
+    color: $text;
+    text-shadow: none!important;
+}

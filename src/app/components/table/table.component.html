@@ -1,4 +1,4 @@
-<p-table [value]="cars">
+<p-table *ngIf="data != undefined" [value]="data">
     <ng-template pTemplate="header">
         <tr>
             <th>Vin</th>

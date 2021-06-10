@@ -7,6 +7,7 @@ import { PrimengCustomModule } from './custom-modules/primeng-custom.module';
 import { ListPageComponent } from './pages/list-page/list-page.component';
 import { TableComponent } from './components/table/table.component';
 import { BigButtonComponent } from './components/big-button/big-button.component';
+import { NavSidebarComponent } from './components/nav-sidebar/nav-sidebar.component';
 
 
 
@@ -15,7 +16,8 @@ import { BigButtonComponent } from './components/big-button/big-button.component
     AppComponent,
     ListPageComponent,
     TableComponent,
-    BigButtonComponent
+    BigButtonComponent,
+    NavSidebarComponent
   ],
   imports: [
     BrowserModule,

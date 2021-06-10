@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {ButtonModule} from 'primeng/button';
+import {TableModule} from 'primeng/table';
 
 const CUSTOM_PRIMENG_COMPONENTS = [
-  ButtonModule
+  ButtonModule,
+  TableModule
 ];
 
 @NgModule({

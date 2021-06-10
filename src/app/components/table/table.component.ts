@@ -8,7 +8,7 @@ import { IListTableData } from 'src/app/interfaces/ilist-table-data';
 })
 export class TableComponent implements OnInit {
 
-  @Input("data") data:IListTableData | null = null;
+  @Input("data") data:IListTableData[] | undefined = undefined;
   
   constructor() { }
 
