@@ -6,7 +6,7 @@ import { TableComponent } from '../components/table/table.component';
 import { BigButtonComponent } from '../components/big-button/big-button.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { PrimengCustomModule } from './primeng-custom.module';
-
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 const CUSTOM_APP_COMPONENTS = [
   ItemFormComponent,
@@ -20,6 +20,7 @@ const CUSTOM_APP_COMPONENTS = [
   declarations: [CUSTOM_APP_COMPONENTS],
   imports: [
     CommonModule,
+    CurrencyMaskModule,
     PrimengCustomModule
   ],
   exports:[CUSTOM_APP_COMPONENTS]

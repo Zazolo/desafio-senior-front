@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import {InputMaskModule} from 'primeng/inputmask';
 
 const CUSTOM_PRIMENG_COMPONENTS = [
   ButtonModule,
@@ -19,7 +20,9 @@ const CUSTOM_PRIMENG_COMPONENTS = [
   DropdownModule,
   InputTextModule,
   CalendarModule,
-  ToggleButtonModule
+  ToggleButtonModule,
+  InputMaskModule
+  
   
 ];
 

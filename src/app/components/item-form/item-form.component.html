@@ -1,50 +1,57 @@
-
-    <form [formGroup]="dataForm" (ngSubmit)="submit()">
     <div class="field-container">
-        <div class="field full vertical">
-            <label for="name">Nome</label>
-            <input formControlName="name" id="name" type="text" pInputText> 
-        </div>
+        <form id="item-form" [formGroup]="dataForm" (ngSubmit)="validate($event)">
+            <div class="field full vertical">
+                <label for="name">Nome</label>
+                <input formControlName="name" id="name" type="text" pInputText> 
+            </div>
 
-        <div class="horizontal">
-            <div class="field halfsize vertical">
-                <label for="measurement_unit">Unidade de medida</label>
-                <p-dropdown [style]="{'width':'100%'}" inputId="measurement_unit" (onChange)="validate($event)" [options]="weight_options" formControlName="measurement_unit" placeholder="Selecione" optionLabel="name"></p-dropdown>
-            </div>
-    
-            <div class="field halfsize vertical">
-                <label for="quantity">Quantidade</label>
-                <input formControlName="quantity" id="name" type="text" pInputText>
-            </div>
-        </div>
+            <div class="horizontal">
+                <div class="field halfsize vertical">
+                    <label for="measurement_unit">Unidade de medida</label>
+                    <p-dropdown [style]="{'width':'100%'}" inputId="measurement_unit" (onChange)="validate($event)" [options]="weight_options" formControlName="measurement_unit" placeholder="Selecione" optionLabel="name"></p-dropdown>
+                </div>
         
+                <div class="field halfsize vertical">
+                    <label for="quantity">Quantidade</label>
+                    <input formControlName="quantity" id="quantity" type="text" pInputText>
+                </div>
+            </div>
+            
+            <div class="horizontal">
+                <div class="field vertical">
+                    <label for="price">Valor do Produto</label>
+                    <input currencyMask formControlName="price" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" pInputText/>
+                </div>
+                <div class="field horizontal">
+                    <label for="perishable">Produto perecível?</label>
+                    <p-toggleButton id="perishable" formControlName="perishable"></p-toggleButton>
+                </div>
+            </div>
+            
+            
+            <div class="horizontal">
+                <div class="field vertical">
+                    <label for="expiration_date">Data de validade</label>
+                    <p-calendar id="expiration_date" dateFormat="dd/mm/yy" inputId="expiration_date" formControlName="expiration_date"></p-calendar>
+                </div>
+        
+                <div class="field vertical">
+                    <label for="manufacturing_date">Data de fabricação</label>
+                    <p-calendar id="manufacturing_date" dateFormat="dd/mm/yy" inputId="manufacturing_date" formControlName="manufacturing_date"></p-calendar>
+                </div>
+            </div>
 
-        <div class="field">
-            <label for="perishable">Produto perecível?</label>
-            <p-toggleButton formControlName="perishable"></p-toggleButton>
-        </div>
-        
-        <div class="horizontal">
-            <div class="field vertical">
-                <label for="expiration_date">Data de validade</label>
-                <p-calendar  dateFormat="dd/mm/yy" inputId="expiration_date" formControlName="expiration_date"></p-calendar>
+            <div class="horizontal">
+                <div class="field flex-end fullsize">
+                    <p-button pRipple type="submit" label="Salvar" form="item-form" icon="pi pi-check" iconPos="left" [disabled]="this.dataForm.status != 'VALID'"></p-button>
+                    <p-button pRipple type="button" label="Cancelar" class="p-button-raised p-button-warning"></p-button>
+                </div>
             </div>
-    
-            <div class="field vertical">
-                <label for="manufacturing_date">Data de fabricação</label>
-                <p-calendar dateFormat="dd/mm/yy" inputId="manufacturing_date" formControlName="manufacturing_date"></p-calendar>
-            </div>
-        </div>
-        
+        </form> 
 
-        <div class="horizontal">
-            <div class="field flex-end fullsize">
-                <p-button pRipple type="button" label="Salvar" icon="pi pi-check" iconPos="left"></p-button>
-                <p-button pRipple type="button" label="Cancelar" class="p-button-raised p-button-warning"></p-button>
-            </div>
-        </div>
+        
         
         
     </div>
-</form>  
+ 
 
