@@ -13,7 +13,6 @@ export class ItemFormComponent implements OnInit {
 
   @Input("data") data:IListTableData | undefined;
   
-
   dataForm:FormGroup = new FormGroup({
     name: new FormControl('', [
       Validators.requiredTrue,
@@ -39,7 +38,6 @@ export class ItemFormComponent implements OnInit {
     {name: "Litro", value: EMeasurementUnit.Litro},
   ];
 
-
   selectedState: any = null;
     
   states: any[] = [
@@ -62,21 +60,42 @@ export class ItemFormComponent implements OnInit {
 
   value:any;
 
+  
 
-  constructor(
-    
-  ) { }
+  constructor() { }
 
   create(){
     console.log(this.dataForm);
   }
 
-  validate(e:any){
-    console.log(e);
+  validate(match:string):string{
+    function removeZeroEsquerda(str:string){
+      let foundNumberDiff0 = false;
+      let index = 0;
+      while(!foundNumberDiff0){
+        if(str[index] == '0'){
+
+        }
+      }
+    }
+    //lt - Allow only 3 decimal numbers
+    if(match.length <= 3){
+      return "0," + match + "lt";
+    } else {
+      return match + "lt";
+    }
+    
+    return match;
   }
 
   ngOnInit(): void {
-    
+    this.dataForm.valueChanges.subscribe((form) => {
+      if(form.quantity){
+        this.dataForm.patchValue({
+          //quantity: form.quantity.replace(/^0+(?!$)/g, "")
+        }, {emitEvent:false})
+      }
+    }, )
   }
 
 }

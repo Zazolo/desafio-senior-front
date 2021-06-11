@@ -7,6 +7,7 @@ import { BigButtonComponent } from '../components/big-button/big-button.componen
 import { DropdownModule } from 'primeng/dropdown';
 import { PrimengCustomModule } from './primeng-custom.module';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { MaskFieldDirective } from '../directives/mask-field.directive';
 
 const CUSTOM_APP_COMPONENTS = [
   ItemFormComponent,
@@ -17,12 +18,12 @@ const CUSTOM_APP_COMPONENTS = [
 
 
 @NgModule({
-  declarations: [CUSTOM_APP_COMPONENTS],
+  declarations: [CUSTOM_APP_COMPONENTS, MaskFieldDirective],
   imports: [
     CommonModule,
     CurrencyMaskModule,
     PrimengCustomModule
   ],
-  exports:[CUSTOM_APP_COMPONENTS]
+  exports:[CUSTOM_APP_COMPONENTS, MaskFieldDirective]
 })
 export class AppComponentsCustomModule { }

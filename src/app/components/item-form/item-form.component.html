@@ -13,16 +13,16 @@
         
                 <div class="field halfsize vertical">
                     <label for="quantity">Quantidade</label>
-                    <input formControlName="quantity" id="quantity" type="text" pInputText>
+                    <input appMaskField data-real-value="" data-field-type="money" formControlName="quantity" id="quantity" type="text" pInputText>
                 </div>
             </div>
             
             <div class="horizontal">
-                <div class="field vertical">
+                <div class="field halfsizevertical">
                     <label for="price">Valor do Produto</label>
                     <input currencyMask formControlName="price" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" pInputText/>
                 </div>
-                <div class="field horizontal">
+                <div class="field halfsizehorizontal">
                     <label for="perishable">Produto perecível?</label>
                     <p-toggleButton id="perishable" formControlName="perishable"></p-toggleButton>
                 </div>
@@ -30,12 +30,12 @@
             
             
             <div class="horizontal">
-                <div class="field vertical">
+                <div class="field halfsize vertical">
                     <label for="expiration_date">Data de validade</label>
                     <p-calendar id="expiration_date" dateFormat="dd/mm/yy" inputId="expiration_date" formControlName="expiration_date"></p-calendar>
                 </div>
         
-                <div class="field vertical">
+                <div class="field halfsize vertical">
                     <label for="manufacturing_date">Data de fabricação</label>
                     <p-calendar id="manufacturing_date" dateFormat="dd/mm/yy" inputId="manufacturing_date" formControlName="manufacturing_date"></p-calendar>
                 </div>
@@ -48,9 +48,6 @@
                 </div>
             </div>
         </form> 
-
-        
-        
         
     </div>
  
