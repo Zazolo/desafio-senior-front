@@ -4,6 +4,6 @@
             <h1>Criando novo item</h1>
             <p>Preencha os campos abaixo para inserir um novo item.</p>
         </div>
-        <app-item-form [data]="data"></app-item-form>
+        <app-item-form [data]="data" (form)="receiveData($event)"></app-item-form>
     </div>
 </div>

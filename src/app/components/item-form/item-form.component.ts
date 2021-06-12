@@ -1,9 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
-import { AfterViewInit, Component, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { Messages } from 'primeng/messages';
-import { BehaviorSubject } from 'rxjs';
 import { EMeasurementUnit } from 'src/app/interfaces/enum/e-measurement-unit';
 import { IListTableData } from 'src/app/interfaces/ilist-table-data';
 
@@ -21,6 +19,8 @@ export class ItemFormComponent implements OnInit, AfterViewInit {
   submitAttempt = false;
 
   today = new Date();
+
+  perishable_visibility = false;
 
   dataForm:FormGroup = new FormGroup({
     name: new FormControl('', [
@@ -54,6 +54,8 @@ export class ItemFormComponent implements OnInit, AfterViewInit {
 
   measurement_unit_selected_value = EMeasurementUnit.Quilograma;
 
+  @Output() form = new EventEmitter();
+  
   constructor(
     private msgs:MessageService
   ) { }
@@ -80,8 +82,7 @@ export class ItemFormComponent implements OnInit, AfterViewInit {
   submit(evt:string){
     console.log(this.dataForm)
     this.submitAttempt = true;
-    this.msgs.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
-    //console.log('ATTEMPT', this.submitAttempt)
+    this.form.emit(this.dataForm.value);
   }
   ngOnInit(): void {
     const cbFormControl = <FormControl>this.dataForm.get('perishable');
@@ -89,11 +90,13 @@ export class ItemFormComponent implements OnInit, AfterViewInit {
     cbFormControl.valueChanges.subscribe(value => {
       if (value[0]) {
         console.log('TRUE');
-        dateFormControl.setValidators([Validators.required])
+        dateFormControl.setValidators([Validators.required]);
+        this.perishable_visibility = true;
       }
       else {
         console.log('FALSE');
         dateFormControl.setValidators(null);
+        this.perishable_visibility = false;
       }
       dateFormControl.updateValueAndValidity();
     });

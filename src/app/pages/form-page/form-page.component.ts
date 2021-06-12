@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Route } from '@angular/router';
-import { EMeasurementUnit } from 'src/app/interfaces/enum/e-measurement-unit';
 import { IListTableData } from 'src/app/interfaces/ilist-table-data';
+import { ItensService } from 'src/app/services/itens.service';
 
 @Component({
   selector: 'app-form-page',
@@ -16,16 +15,30 @@ export class FormPageComponent implements OnInit {
   data:IListTableData|undefined;
 
   constructor(
-    private routeSnap:ActivatedRoute
+    private routeSnap:ActivatedRoute,
+    private itensS:ItensService
   ) { }
 
   ngOnInit(): void {
-    
+    //verificar se é edição?
     this.id = this.routeSnap.snapshot.paramMap.get('id');
-    this.routeSnap.url.subscribe((ok)=>{
-      //console.log('PATH:', ok.join('/'));  
+    if(this.id != null){
+      this.loadData(this.id);
+    }
+  }
+
+  loadData(id:string){
+    console.log('chamou?');
+    this.itensS.getOne(id).then((data) => {
+      console.log(data);
+      if(data){
+        this.data = data;
+      }
     })
-    
+  }
+
+  public receiveData(event:any){
+    console.log('RECEBIDO', event);
   }
 
 }

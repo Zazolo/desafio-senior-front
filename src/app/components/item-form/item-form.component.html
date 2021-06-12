@@ -39,7 +39,7 @@
             </div>
             
             <div class="horizontal">
-                <div class="field halfsize vertical">
+                <div class="field halfsize vertical" *ngIf="perishable_visibility == true">
                     <label for="expiration_date">Data de validade</label>
                     <p-calendar id="expiration_date" dateFormat="dd/mm/yy" inputId="expiration_date" formControlName="expiration_date"></p-calendar>
                     <p-message *ngIf="submitAttempt && dataForm.get('expiration_date')?.errors && dataForm.get('expiration_date')?.hasError('required')" severity="error" text="O item é perecível! É necessário informar uma data de validade. "></p-message>
@@ -50,7 +50,7 @@
                     text="O produto está vencido!"></p-message>
                 </div>
         
-                <div class="field halfsize vertical">
+                <div class="field {{perishable_visibility == true ? 'halfsize' : 'fullsize'}} vertical">
                     <label for="manufacturing_date">Data de fabricação</label>
                     <p-calendar id="manufacturing_date" dateFormat="dd/mm/yy" inputId="manufacturing_date" formControlName="manufacturing_date"></p-calendar>
                     <p-message *ngIf="submitAttempt && dataForm.get('manufacturing_date')?.errors && dataForm.get('manufacturing_date')?.hasError('required')" severity="error" text="É necessário informar a data de fabricação do item!"></p-message>
