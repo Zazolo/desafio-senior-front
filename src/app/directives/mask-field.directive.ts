@@ -1,23 +1,26 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { EMeasurementUnit } from '../interfaces/enum/e-measurement-unit';
 
 @Directive({
   selector: '[appMaskField]',
-  inputs: [
-		"appMaskField: appMaskField"
-	]
 })
-export class MaskFieldDirective {
+export class MaskFieldDirective implements OnInit{
 
   private el:ElementRef;
 
   private decimals = 2;
   
-  private fieldType:string | undefined;
+  @Input('data-field-type') fieldType:string = '';
 
   constructor(el:ElementRef) { 
     this.el = el;
-    this.fieldType = this.el.nativeElement.dataset.fieldType;
+    //this.fieldType = this.el.nativeElement.dataset.fieldType;
+  }
+  ngOnInit(): void {
+    setInterval(()=>{
+      this.run();
+    }, 100)
   }
 
   private clearString(text:string):string{
@@ -43,6 +46,10 @@ export class MaskFieldDirective {
       this.applyValues(str, isMoney);
       return;
     }
+    if(str.length == 0){
+      this.applyValues(str, isMoney);
+      return;
+    }
     if(str.length <= decimals){
       this.applyValues("0," + str, isMoney);
       return;
@@ -63,10 +70,13 @@ export class MaskFieldDirective {
 
   private run(){
     switch(this.fieldType){
-      case (EMeasurementUnit.Litro || EMeasurementUnit.Quilograma):
+      case (EMeasurementUnit.Litro.toString()):
         this.transform(this.el.nativeElement.value, 3);
         break;
-      case (EMeasurementUnit.Unidade):
+      case (EMeasurementUnit.Quilograma.toString()):
+        this.transform(this.el.nativeElement.value, 3);
+        break;
+      case (EMeasurementUnit.Unidade.toString()):
         this.transform(this.el.nativeElement.value, 0);
         break;
       case 'money':
@@ -79,17 +89,22 @@ export class MaskFieldDirective {
   keyupEvent(event: KeyboardEvent){
     this.run();
   }
+  
 
   @HostListener('keydown', ['$event'])
   keydownEvent(event: KeyboardEvent){
-    console.log(event);
     if((event.key == 'Backspace') || (event.key == 'Delete')){
       this.applyValues('');
+      this.run();
     }
   }
 
   private applyValues(value:string, isMoney = false):void{
     this.el.nativeElement.dataset.realValue = value;
+    if(!value){
+      this.el.nativeElement.value = '';
+      return;
+    }
     if(!isMoney){
       let sufix = '';
       switch(this.fieldType){
@@ -105,6 +120,7 @@ export class MaskFieldDirective {
       }
       this.el.nativeElement.value= value + sufix;
     } else {
+      this.el.nativeElement.setAttribute('style', 'direction: rtl;');
       this.el.nativeElement.value= 'R$' + value;
     }
     

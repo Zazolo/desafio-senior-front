@@ -1,6 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 import { EMeasurementUnit } from 'src/app/interfaces/enum/e-measurement-unit';
 import { IListTableData } from 'src/app/interfaces/ilist-table-data';
 
@@ -38,27 +39,8 @@ export class ItemFormComponent implements OnInit {
     {name: "Litro", value: EMeasurementUnit.Litro},
   ];
 
-  selectedState: any = null;
-    
-  states: any[] = [
-      {name: 'Arizona', code: 'Arizona'},
-      {name: 'California', value: 'California'},
-      {name: 'Florida', code: 'Florida'},
-      {name: 'Ohio', code: 'Ohio'},
-      {name: 'Washington', code: 'Washington'}
-  ];
-
-  state:any = '';
-
-  cities1: any[] = [];
-  
-  cities2: any[] = [];
-  
-  city1:any = null;
-
-  city2:any = null;
-
-  value:any;
+  measurement_unit_selected_value = EMeasurementUnit.Quilograma.toString();
+  simple_behavior_for_price = 'money';
 
   
 
@@ -68,34 +50,15 @@ export class ItemFormComponent implements OnInit {
     console.log(this.dataForm);
   }
 
-  validate(match:string):string{
-    function removeZeroEsquerda(str:string){
-      let foundNumberDiff0 = false;
-      let index = 0;
-      while(!foundNumberDiff0){
-        if(str[index] == '0'){
-
-        }
-      }
-    }
-    //lt - Allow only 3 decimal numbers
-    if(match.length <= 3){
-      return "0," + match + "lt";
-    } else {
-      return match + "lt";
-    }
-    
-    return match;
+  dropdownChange(evt:any){
+    this.measurement_unit_selected_value = evt.value.value;
   }
 
+  submit(evt:string){
+    console.log(evt);
+  }
   ngOnInit(): void {
-    this.dataForm.valueChanges.subscribe((form) => {
-      if(form.quantity){
-        this.dataForm.patchValue({
-          //quantity: form.quantity.replace(/^0+(?!$)/g, "")
-        }, {emitEvent:false})
-      }
-    }, )
+   
   }
 
 }
