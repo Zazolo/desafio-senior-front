@@ -3,7 +3,7 @@ import { EMeasurementUnit } from "./enum/e-measurement-unit";
 export interface IListTableData {
     id?:string,
     name:string,
-    measurement_unit:EMeasurementUnit,
+    measurement_unit:{},
     quantity: number,
     price:number,
     perishable:boolean,

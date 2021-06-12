@@ -2,7 +2,7 @@
     <img class="logo" src="../../../assets/image/logo-senior.svg">
 
     <ul>
-        <li *ngFor="let m of menu" [routerLink]="[m.routerlink]">
+        <li *ngFor="let m of menu" (click)="m.click()" [class.active]="activeRoute == m.name">
             <i [class]="m.icon"></i>
         </li>
     </ul>

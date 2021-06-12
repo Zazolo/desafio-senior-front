@@ -47,6 +47,11 @@
     padding: 12px;
     @media screen and (max-width: 900px){
         flex-direction: column;
+        padding: 0px;
+        padding-top: 12px;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 12px;
     }
 }
 
@@ -91,7 +96,7 @@ label{
         display: block;
         width: 100%;
     }
-     label{
+    label{
         font-family: "Noto Sans", sans-serif;
         margin-left: 5px!important;
     }
@@ -114,6 +119,10 @@ label{
                 margin-top: 6px!important;
                 margin-bottom: 6px!important;
             }
+        }
+
+        label{
+            margin-left: 0!important;
         }
         
     }

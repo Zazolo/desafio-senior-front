@@ -45,7 +45,7 @@
                     <p-message *ngIf="submitAttempt && dataForm.get('expiration_date')?.errors && dataForm.get('expiration_date')?.hasError('required')" severity="error" text="O item é perecível! É necessário informar uma data de validade. "></p-message>
                     <p-message 
                     *ngIf="submitAttempt 
-                    && dateBigger(dataForm.get('expiration_date')?.value, today)"
+                    && dateBigger(today, dataForm.get('expiration_date')?.value)"
                     severity="error"
                     text="O produto está vencido!"></p-message>
                 </div>

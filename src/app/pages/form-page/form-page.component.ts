@@ -15,7 +15,6 @@ export class FormPageComponent implements OnInit {
 
   data:IListTableData|undefined;
 
-    
   constructor(
     private routeSnap:ActivatedRoute
   ) { }
@@ -23,6 +22,10 @@ export class FormPageComponent implements OnInit {
   ngOnInit(): void {
     
     this.id = this.routeSnap.snapshot.paramMap.get('id');
+    this.routeSnap.url.subscribe((ok)=>{
+      //console.log('PATH:', ok.join('/'));  
+    })
+    
   }
 
 }
