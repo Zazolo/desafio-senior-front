@@ -42,6 +42,7 @@ export class MaskFieldDirective implements OnInit{
 
   private transform(text:string, decimals = 2, isMoney = false){
     let str = this.clearString(text);
+    this.applyValues('', false);
     if(decimals == 0){
       this.applyValues(str, isMoney);
       return;
@@ -95,7 +96,6 @@ export class MaskFieldDirective implements OnInit{
   keydownEvent(event: KeyboardEvent){
     if((event.key == 'Backspace') || (event.key == 'Delete')){
       this.applyValues('');
-      this.run();
     }
   }
 
@@ -118,7 +118,8 @@ export class MaskFieldDirective implements OnInit{
           sufix = EMeasurementUnit.Unidade;
           break;
       }
-      this.el.nativeElement.value= value + sufix;
+      this.el.nativeElement.value = value + sufix;
+      console.log(this.el.nativeElement.formControlName)
     } else {
       this.el.nativeElement.setAttribute('style', 'direction: rtl;');
       this.el.nativeElement.value= 'R$' + value;

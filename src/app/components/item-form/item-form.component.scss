@@ -13,6 +13,9 @@
 
 .halfsize{
     width: 50%;
+    @media screen and (max-width: 900px){
+        width: 100%;
+    }
 }
 .vertical{
     flex-direction: column;
@@ -20,9 +23,19 @@
 .horizontal{
     display: flex;
     flex-direction: row!important;
+    @media screen and (max-width: 900px){
+        flex-direction: column!important;
+    }
 }
 .spaced-between{
     justify-content: space-between;
+}
+
+.align-center{
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    align-items: center;
 }
 
 .flex-end{
@@ -32,7 +45,29 @@
 .field{
     display: flex;
     padding: 12px;
+    @media screen and (max-width: 900px){
+        flex-direction: column;
+    }
 }
+
+
+:host ::ng-deep .p-inline-message-text {
+    margin-left: 3px!important;
+    font-size: .8em;
+    text-align: center;
+}
+
+:host ::ng-deep .money-change{
+    .p-inputnumber-input{
+        text-align: right!important;
+    }
+}
+
+:host ::ng-deep input, span{
+    width: 100%;
+}
+
+
 
 .ui-dropdown {
     max-width: 100%;
@@ -42,8 +77,48 @@ p-toggleButton{
     width: 24px;
     height: 24px;
 }
-p-button{
-    width: auto;
-    margin-left: 12px!important;
+
+
+label{
+    padding-bottom: 6px;
+}
+:host ::ng-deep form{
+    .p-inputnumber, .p-calendar{
+        display: block!important;
+    }
+
+    .p-calendar .p-inputtext {
+        display: block;
+        width: 100%;
+    }
+     label{
+        font-family: "Noto Sans", sans-serif;
+        margin-left: 5px!important;
+    }
+
+    p-button{
+        width: auto;
+        margin-left: 12px!important;
+        .p-button{
+            width: 100px;
+            
+        }
+    }
+
+    @media screen and (max-width: 900px){
+        p-button{
+            width: 100%;
+            margin-left: 0px!important;
+            .p-button{
+                width: 100%;
+                margin-top: 6px!important;
+                margin-bottom: 6px!important;
+            }
+        }
+        
+    }
+
     
+
+
 }

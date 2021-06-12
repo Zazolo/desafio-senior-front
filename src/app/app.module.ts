@@ -5,8 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppPagesModule } from './custom-modules/app-pages.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CurrencyMaskModule } from "ng2-currency-mask";
-import { MaskFieldDirective } from './directives/mask-field.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +13,6 @@ import { MaskFieldDirective } from './directives/mask-field.directive';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    CurrencyMaskModule,
     AppRoutingModule,
     AppPagesModule,
   ],

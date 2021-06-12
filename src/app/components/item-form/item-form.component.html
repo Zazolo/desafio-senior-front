@@ -3,50 +3,76 @@
             <div class="field full vertical">
                 <label for="name">Nome</label>
                 <input formControlName="name" id="name" type="text" pInputText> 
+                <p-message *ngIf="submitAttempt && dataForm.get('name')?.errors && dataForm.get('name')?.hasError('required')" severity="error" text="Um nome é necessário para prosseguir."></p-message>
+                <p-message *ngIf="submitAttempt && dataForm.get('name')?.errors && dataForm.get('name')?.hasError('pattern')" severity="error" text="Apenas letras são permitidas"></p-message>
+                <p-message *ngIf="submitAttempt && dataForm.get('name')?.errors && dataForm.get('name')?.hasError('maxlength')" severity="error" text="O nome pode conter até 50 caracteres, apenas."></p-message>
             </div>
 
             <div class="horizontal">
                 <div class="field halfsize vertical">
                     <label for="measurement_unit">Unidade de medida</label>
-                    <p-dropdown [style]="{'width':'100%'}" inputId="measurement_unit" (onChange)="dropdownChange($event)" [options]="weight_options" formControlName="measurement_unit" placeholder="Selecione" optionLabel="name"></p-dropdown>
+                    <p-dropdown [style]="{'width':'100%'}" inputId="measurement_unit" (onChange)="dropdownChange($event)" [options]="weight_options" formControlName="measurement_unit" placeholder="Selecione" optionLabel="name" ></p-dropdown>
+                    <p-message *ngIf="submitAttempt && dataForm.get('measurement_unit')?.errors && dataForm.get('measurement_unit')?.hasError('required')" severity="error" text="Selecione alguma opção."></p-message>
                 </div>
         
                 <div class="field halfsize vertical">
                     <label for="quantity">Quantidade</label>
-                    <input appMaskField pInputText data-real-value="" [data-field-type]="measurement_unit_selected_value" formControlName="quantity" id="quantity" type="text" >
+                    <!---<input appMaskField pInputText data-real-value="" [data-field-type]="measurement_unit_selected_value" formControlName="quantity" id="quantity" type="text" >--->
+                    <p-inputNumber formControlName="quantity" *ngIf="measurement_unit_selected_value == 'kg' || measurement_unit_selected_value == 'lt'" mode="decimal" [minFractionDigits]="3" [maxFractionDigits]="3"  [suffix]="measurement_unit_selected_value"></p-inputNumber>
+                    <p-inputNumber formControlName="quantity" *ngIf="measurement_unit_selected_value == 'un'" mode="decimal" [suffix]="measurement_unit_selected_value"></p-inputNumber>
                 </div>
             </div>
             
             <div class="horizontal">
-                <div class="field halfsize vertical">
+                <div class="field fullsize vertical">
                     <label for="price">Valor do Produto</label>
-                    <input appMaskField data-real-value="" [data-field-type]="simple_behavior_for_price" formControlName="price" pInputText/>
+                    <!---<input appMaskField data-real-value="" [data-field-type]="simple_behavior_for_price" formControlName="price" pInputText/>--->
+                    <p-inputNumber class="money-change" formControlName="price" mode="currency" currency="BRL" locale="pt-BR" placeholder="00000"></p-inputNumber>
+                    <p-message *ngIf="submitAttempt && dataForm.get('price')?.errors && dataForm.get('price')?.hasError('required')" severity="error" text="É necessário informar o valor do item!"></p-message>
+                    <p-message *ngIf="submitAttempt && dataForm.get('price')?.errors && dataForm.get('price')?.hasError('minLength')" severity="error" text="O produto precisar ter ao menos o valor de R$0,01!"></p-message>
                 </div>
-                <div class="field halfsize vertical">
-                    <label for="perishable">Produto perecível?</label>
-                    <p-toggleButton id="perishable" formControlName="perishable"></p-toggleButton>
-                </div>
+               
             </div>
-            
+
+            <div class="field fullsize vertical align-center">
+                <p-checkbox name="perishable" value="true" label=" O Produto é perecível?" formControlName="perishable"></p-checkbox>
+            </div>
             
             <div class="horizontal">
                 <div class="field halfsize vertical">
                     <label for="expiration_date">Data de validade</label>
                     <p-calendar id="expiration_date" dateFormat="dd/mm/yy" inputId="expiration_date" formControlName="expiration_date"></p-calendar>
+                    <p-message *ngIf="submitAttempt && dataForm.get('expiration_date')?.errors && dataForm.get('expiration_date')?.hasError('required')" severity="error" text="O item é perecível! É necessário informar uma data de validade. "></p-message>
+                    <p-message 
+                    *ngIf="submitAttempt 
+                    && dateBigger(dataForm.get('expiration_date')?.value, today)"
+                    severity="error"
+                    text="O produto está vencido!"></p-message>
                 </div>
         
                 <div class="field halfsize vertical">
                     <label for="manufacturing_date">Data de fabricação</label>
                     <p-calendar id="manufacturing_date" dateFormat="dd/mm/yy" inputId="manufacturing_date" formControlName="manufacturing_date"></p-calendar>
+                    <p-message *ngIf="submitAttempt && dataForm.get('manufacturing_date')?.errors && dataForm.get('manufacturing_date')?.hasError('required')" severity="error" text="É necessário informar a data de fabricação do item!"></p-message>
+                    <p-message 
+                    *ngIf="submitAttempt 
+                    && dateBigger(dataForm.get('expiration_date')?.value, dataForm.get('manufacturing_date')?.value)"
+                    severity="error"
+                    text="A data de validade não pode ser maior que a data de fabricação!"></p-message>
                 </div>
             </div>
 
+            
+
             <div class="horizontal">
+                
                 <div class="field flex-end fullsize">
-                    <p-button pRipple type="submit" label="Salvar" form="item-form" icon="pi pi-check" iconPos="left" [disabled]="this.dataForm.status != 'VALID'"></p-button>
-                    <p-button pRipple type="button" label="Cancelar" class="p-button-raised p-button-warning"></p-button>
+                    <p-button pRipple type="submit" label="Salvar" form="item-form" icon="pi pi-check" iconPos="left"></p-button>
+                    <p-button pRipple type="button" label="Cancelar"></p-button>
                 </div>
             </div>
+
+            
         </form> 
         
     </div>
