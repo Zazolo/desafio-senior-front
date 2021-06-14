@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './list-page.component.html',
   styleUrls: ['./list-page.component.scss']
 })
-export class ListPageComponent implements OnInit, OnChanges {
+export class ListPageComponent implements OnInit {
 
   data?:IListTableData[];
 
@@ -19,14 +19,13 @@ export class ListPageComponent implements OnInit, OnChanges {
   ) { }
   
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('TEVE MUDANÇA', changes);
-  }
-
   ngOnInit(): void {
     this.loadItens();
   }
 
+  /**
+   * Carrega/recarrega a lista de ícones na tela inicia.
+   */
   loadItens(){
     this.itensS.list().then((itens) => {
       if(itens){
@@ -37,11 +36,19 @@ export class ListPageComponent implements OnInit, OnChanges {
     })
   }
 
+  /**
+   * Encaminha para pãgina de edição
+   * @param evt 
+   */
   edit(evt:any){
     console.log(evt);
     this.router.navigate(['/editar/' + evt]);
   }
 
+  /**
+   * Remove item
+   * @param id 
+   */
   remove(id:any){
     Swal.fire({
       title: 'Tem certeza?',

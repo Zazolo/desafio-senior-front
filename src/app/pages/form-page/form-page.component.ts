@@ -11,10 +11,16 @@ import Swal from 'sweetalert2';
 })
 export class FormPageComponent implements OnInit {
 
+  /**
+   * ID que pode ser recebido pela rota editar/:id
+   */
   id?:string;
 
   data:IListTableData|undefined;
 
+  /**
+   * Controla se a tela está para EDIÇÃAO ou criação
+   */
   window_mode = 'new';
   
 
@@ -27,7 +33,6 @@ export class FormPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //verificar se é edição?
     this.id = this.routeSnap.snapshot.paramMap.get('id') || undefined;
     if(this.id != undefined){
       this.window_mode = 'edit';
@@ -38,7 +43,6 @@ export class FormPageComponent implements OnInit {
   }
 
   loadData(id:string){
-    console.log('chamou o loaddata?');
     this.itensS.getOne(id).then((data) => {
       console.log(data);
       if(data){
@@ -48,10 +52,7 @@ export class FormPageComponent implements OnInit {
   }
 
   public receiveData(event:any){
-    console.log('RECEBIDO', event);
     this.data = event;
-    
-
     if(this.window_mode == 'edit'){
       this.itensS.edit(event).then(()=>{
         Swal.fire({

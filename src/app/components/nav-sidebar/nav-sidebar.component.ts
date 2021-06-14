@@ -7,6 +7,9 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Params, Route, Router, RouterSt
 })
 export class NavSidebarComponent implements OnInit, OnChanges {
 
+  /**
+   * Configurações do menu da sidebar.
+   */
   menu = [
     {
       icon: 'pi pi-home',
@@ -20,8 +23,14 @@ export class NavSidebarComponent implements OnInit, OnChanges {
     }
   ];
 
+  /**
+   * Rota atual para marcação na sidebar.
+   */
   activeRoute = '/listagem';
 
+  /**
+   * Obtém o pathname atual
+   */
   ngOnInit() {
     this.activeRoute = window.location.pathname;
   }
@@ -35,12 +44,18 @@ export class NavSidebarComponent implements OnInit, OnChanges {
     this.ngOnInit();
   }
 
+  /**
+   * Redireciona para a página de formulário
+   */
   formulario(){
     this.router.navigateByUrl('/formulario');
     this.activeRoute = '/formulario';
 
   }
 
+  /**
+   * * Redireciona para a página de listagem
+   */
   listagem(){
     this.router.navigateByUrl('/listagem');
     this.activeRoute = '/listagem';

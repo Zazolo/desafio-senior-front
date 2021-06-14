@@ -1,7 +1,5 @@
-import { CurrencyPipe } from '@angular/common';
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EMeasurementUnit } from 'src/app/interfaces/enum/e-measurement-unit';
 import { IListTableData } from 'src/app/interfaces/ilist-table-data';
 
@@ -12,7 +10,7 @@ import { IListTableData } from 'src/app/interfaces/ilist-table-data';
   templateUrl: './item-form.component.html',
   styleUrls: ['./item-form.component.scss']
 })
-export class ItemFormComponent implements OnInit, AfterViewInit, OnChanges {
+export class ItemFormComponent implements OnInit, OnChanges {
 
   @Input("data") data?:IListTableData;
 
@@ -57,15 +55,17 @@ export class ItemFormComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Output() form = new EventEmitter();
   
-  constructor(
-    private msgs:MessageService
-  ) { }
+  constructor() { }
 
+
+  /**
+   * Recarrega os dados na interface.
+   * @param changes 
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if(changes.data){
       let currentValues = changes.data.currentValue;
       if(currentValues != undefined){
-        console.log('CURRENT', currentValues);
         this.dataForm.patchValue({
           id: currentValues.id,
           name: currentValues.name,
@@ -81,18 +81,20 @@ export class ItemFormComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  ngAfterViewInit(): void {
-    
-  }
-
-  create(){
-    console.log(this.dataForm);
-  }
-
+  /**
+   * Método de ação para o dropdown
+   * @param evt 
+   */
   dropdownChange(evt:any){
     this.measurement_unit_selected_value = evt.value.value;
   }
 
+  /**
+   * Comparador de datas usado para validação de alguns elementos.
+   * @param date1 
+   * @param date2 
+   * @returns 
+   */
   dateBigger(date1:Date, date2:Date):boolean{    
     if (date1 > date2) {    
       return true;
@@ -101,6 +103,10 @@ export class ItemFormComponent implements OnInit, AfterViewInit, OnChanges {
     }    
   }    
   
+  /**
+   * Submit do formulário
+   * @param evt 
+   */
   submit(evt:string){
     console.log(this.dataForm)
     this.submitAttempt = true;
@@ -120,6 +126,9 @@ export class ItemFormComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
+  /**
+   * Cria o listener para variável de PERECÍVEL no formulário.
+   */
   ngOnInit(): void {
     const cbFormControl = <FormControl>this.dataForm.get('perishable');
     const dateFormControl = <FormControl>this.dataForm.get('expiration_date');
