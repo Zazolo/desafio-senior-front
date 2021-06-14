@@ -28,7 +28,6 @@ export class FormPageComponent implements OnInit {
 
   ngOnInit(): void {
     //verificar se é edição?
-    console.log(this.routeSnap);
     this.id = this.routeSnap.snapshot.paramMap.get('id') || undefined;
     if(this.id != undefined){
       this.window_mode = 'edit';

@@ -14,7 +14,7 @@ import { IListTableData } from 'src/app/interfaces/ilist-table-data';
 })
 export class ItemFormComponent implements OnInit, AfterViewInit, OnChanges {
 
-  @Input("data") data:IListTableData | undefined;
+  @Input("data") data?:IListTableData;
 
   submitAttempt = false;
 
@@ -124,9 +124,11 @@ export class ItemFormComponent implements OnInit, AfterViewInit, OnChanges {
     const cbFormControl = <FormControl>this.dataForm.get('perishable');
     const dateFormControl = <FormControl>this.dataForm.get('expiration_date');
     cbFormControl.valueChanges.subscribe(value => {
-      if (value[0]) {
-        dateFormControl.setValidators([Validators.required]);
-        this.perishable_visibility = true;
+      if (Array.isArray(value)) {
+        if(value[0]){
+          dateFormControl.setValidators([Validators.required]);
+          this.perishable_visibility = true;
+        }
       }
       else {
         dateFormControl.setValidators(null);

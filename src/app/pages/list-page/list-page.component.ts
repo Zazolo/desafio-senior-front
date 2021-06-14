@@ -2,6 +2,7 @@ import { AfterViewChecked, Component, OnChanges, OnInit, SimpleChanges } from '@
 import { Router } from '@angular/router';
 import { IListTableData } from 'src/app/interfaces/ilist-table-data';
 import { ItensService } from 'src/app/services/itens.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-page',
@@ -41,8 +42,36 @@ export class ListPageComponent implements OnInit, OnChanges {
     this.router.navigate(['/editar/' + evt]);
   }
 
-  remove(evt:any){
-    console.log('REMOVE', evt);
+  remove(id:any){
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Você não poderá desfazer essa ação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sim, remova-o!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.itensS.remove(id).then(()=>{
+          Swal.fire(
+            'Produto deletado!',
+            'Produto deletado com sucessso! .',
+            'success'
+          );
+          this.loadItens();
+        }, (error) => {
+          Swal.fire(
+            'Produto não foi deletado!',
+            'Um erro ocorreu ao deletar, tente novamente mais tarde! .',
+            'error'
+          )
+        })
+        
+      }
+    })
+
   }
 
 }
