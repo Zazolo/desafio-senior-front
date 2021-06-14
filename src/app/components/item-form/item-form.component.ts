@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { EMeasurementUnit } from 'src/app/interfaces/enum/e-measurement-unit';
@@ -12,7 +12,7 @@ import { IListTableData } from 'src/app/interfaces/ilist-table-data';
   templateUrl: './item-form.component.html',
   styleUrls: ['./item-form.component.scss']
 })
-export class ItemFormComponent implements OnInit, AfterViewInit {
+export class ItemFormComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input("data") data:IListTableData | undefined;
 
@@ -23,6 +23,7 @@ export class ItemFormComponent implements OnInit, AfterViewInit {
   perishable_visibility = false;
 
   dataForm:FormGroup = new FormGroup({
+    id: new FormControl(''),
     name: new FormControl('', [
       Validators.required,
       Validators.minLength(1),
@@ -60,6 +61,26 @@ export class ItemFormComponent implements OnInit, AfterViewInit {
     private msgs:MessageService
   ) { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes.data){
+      let currentValues = changes.data.currentValue;
+      if(currentValues != undefined){
+        console.log('CURRENT', currentValues);
+        this.dataForm.patchValue({
+          id: currentValues.id,
+          name: currentValues.name,
+          measurement_unit: currentValues.measurement_unit,
+          quantity: currentValues.quantity || 0,
+          price: currentValues.price,
+          perishable: currentValues.perishable,
+          expiration_date: new Date(currentValues.expiration_date) || null,
+          manufacturing_date: new Date(currentValues.manufacturing_date) || null
+        })
+      }
+      
+    }
+  }
+
   ngAfterViewInit(): void {
     
   }
@@ -79,22 +100,35 @@ export class ItemFormComponent implements OnInit, AfterViewInit {
       return false;
     }    
   }    
+  
   submit(evt:string){
     console.log(this.dataForm)
     this.submitAttempt = true;
-    this.form.emit(this.dataForm.value);
+    if(this.dataForm.status == 'VALID'){
+      if(this.perishable_visibility){
+        const exp_date =  <FormControl>this.dataForm.get('expiration_date');
+        const fab_date =  <FormControl>this.dataForm.get('manufacturing_date');
+        if(fab_date.value < exp_date.value){
+          this.form.emit(this.dataForm.value);  
+        } else {
+          console.log("Data de fabricação é superior a de validade.");
+        }
+      } else {
+        this.form.emit(this.dataForm.value);
+      }
+      
+    }
   }
+
   ngOnInit(): void {
     const cbFormControl = <FormControl>this.dataForm.get('perishable');
     const dateFormControl = <FormControl>this.dataForm.get('expiration_date');
     cbFormControl.valueChanges.subscribe(value => {
       if (value[0]) {
-        console.log('TRUE');
         dateFormControl.setValidators([Validators.required]);
         this.perishable_visibility = true;
       }
       else {
-        console.log('FALSE');
         dateFormControl.setValidators(null);
         this.perishable_visibility = false;
       }

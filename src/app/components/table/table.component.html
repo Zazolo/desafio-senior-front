@@ -16,9 +16,9 @@
             <td>{{item.quantity + item.measurement_unit.value}}</td>
             <td>{{item.manufacturing_date | date:'d/M/yy'}}</td>
             <td>{{item.expiration_date | date:'d/M/yy'}}</td>
-            <td>
-                <p-button pRipple type="button" label="Editar" (click)="edit(item.id)"></p-button>
-                <p-button pRipple type="button" label="Excluir" (click)="remove(item.id)"></p-button>
+            <td class="action-column">
+                <p-button pButton type="button" class="p-button-raised p-button-rounded" icon="pi pi-pencil" iconPos="left" (click)="edit(item.id)"></p-button>
+                <p-button pButton type="button" class="p-button-raised p-button-rounded" icon="pi pi-times" iconPos="left" (click)="remove(item.id)"></p-button>
             </td>
         </tr>
     </ng-template>

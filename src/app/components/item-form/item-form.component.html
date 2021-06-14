@@ -56,9 +56,10 @@
                     <p-message *ngIf="submitAttempt && dataForm.get('manufacturing_date')?.errors && dataForm.get('manufacturing_date')?.hasError('required')" severity="error" text="É necessário informar a data de fabricação do item!"></p-message>
                     <p-message 
                     *ngIf="submitAttempt 
-                    && dateBigger(dataForm.get('expiration_date')?.value, dataForm.get('manufacturing_date')?.value)"
+                    && perishable_visibility
+                    && dateBigger(dataForm.get('manufacturing_date')?.value, dataForm.get('expiration_date')?.value)"
                     severity="error"
-                    text="A data de validade não pode ser maior que a data de fabricação!"></p-message>
+                    text="A data de fabricação não pode ser maior que a data de validade!"></p-message>
                 </div>
             </div>
 
@@ -68,7 +69,7 @@
                 
                 <div class="field flex-end fullsize">
                     <p-button pRipple type="submit" label="Salvar" form="item-form" icon="pi pi-check" iconPos="left"></p-button>
-                    <p-button pRipple type="button" label="Cancelar"></p-button>
+                    <p-button pRipple type="button" label="Cancelar" routerLink="/listagem"></p-button>
                 </div>
             </div>
 

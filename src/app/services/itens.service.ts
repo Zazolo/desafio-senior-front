@@ -6,16 +6,20 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class ItensService {
 
-  private db:IListTableData[];
+  private db:IListTableData[] = [];
 
   private storage:Storage;
 
   list():Promise<IListTableData[]>{
     return new Promise((resolve, reject) => {
-      while(this.db == undefined){
+        let local_db = this.storage.getItem('db') || '';
+        if(local_db != ''){
+          this.db = JSON.parse(local_db);
+        } else {
+          this.db = [];
+        }
         setTimeout(()=>{}, 200);
-      }
-      resolve(this.db);
+        resolve(this.db);
     })
   }
 
@@ -34,24 +38,31 @@ export class ItensService {
 
   save(item:IListTableData):Promise<boolean>{
     return new Promise((resolve, reject) => {
-      item.id = uuidv4(); 
-      this.db?.push(item);
-      this.storage.setItem('db', JSON.stringify(this.db));
-      resolve(true);
+      try {
+        if(!item.id) item.id = uuidv4(); 
+        this.db?.push(item);
+        this.storage.setItem('db', JSON.stringify(this.db));
+        resolve(true);
+      } catch (error) {
+        console.log('Falha geral ao salvar o item!', error);
+        reject(error);
+      }
+     
     })
   }
 
   edit(data:IListTableData):Promise<boolean>{
     return new Promise((resolve, reject) => {
-      let el:any;
-      this.db?.forEach((dbel, index) => {
-        if(dbel.id == data.id){
-          this.db[index] = data;
-          this.storage.setItem('db', JSON.stringify(this.db));
-          resolve(true);
-        }
-      });
-      reject(false);
+      try {
+        let itemIndex = this.db.findIndex(item => item.id == data.id);
+        this.db[itemIndex] = data;
+        this.storage.setItem('db', JSON.stringify(this.db));
+        console.log('Item atualizado!');
+        resolve(true);
+      } catch (error) {
+        reject(error);
+      }
+      
     })
   }
 
@@ -59,7 +70,7 @@ export class ItensService {
     return new Promise((resolve, reject) => {
       this.db?.forEach((dbel, index) => {
         if(dbel.id == id){
-          this.db.splice(index, 1);
+          this.db?.splice(index, 1);
           this.storage.setItem('db', JSON.stringify(this.db));
           resolve(true);
         }
@@ -69,12 +80,5 @@ export class ItensService {
 
   constructor() {
     this.storage = window.localStorage;
-    let local_db = this.storage.getItem('db') || '';
-    if(local_db != ''){
-      this.db = JSON.parse(local_db);
-    } else {
-      this.db = [];
-    }
-    
   }
 }

@@ -1,14 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Nunito&display=swap');
 @import './props.scss';
 
-
 //------Definições de estrutura de elementos
 
 *{
     box-sizing: border-box;
+}
+
+body, p{
     margin: 0!important;
 }
 
+
+.swal2-styled.swal2-confirm{
+    background-color: black;
+}
 
 h1, h2, h3, p{
     line-height: 1;
